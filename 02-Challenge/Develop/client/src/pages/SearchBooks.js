@@ -67,9 +67,10 @@ const SearchBooks = () => {
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-    console.log('token', token)
+    
 
     if (!token) {
+      console.log('YOU DONT HAVE A TOKEN')
       return false;
     }
 
@@ -80,13 +81,14 @@ const SearchBooks = () => {
           id: Auth.getProfile().data._id 
         }
       });
-
+      console.log(Auth.getProfile().data)
       if (!response) {
         throw new Error('something went wrong!');
       }
 
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      console.log(savedBookIds)
     } catch (err) {
       console.error(err);
     }

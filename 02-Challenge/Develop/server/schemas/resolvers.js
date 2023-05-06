@@ -43,14 +43,16 @@ const resolvers = {
             return { token, user };
         
     },
-    saveBook: async (parent, { book }, context) => {
-        console.log(context)
+    saveBook: async (parent, { authors, description, bookId, image, link, title  }, context) => {
         if (context.user) {
-            return User.findOneAndUpdate(
+            console.log(authors, description, bookId, image, link, title)
+            const updatedUser = await User.findOneAndUpdate(
                 { _id: context.user._id },
-                { $addToSet: { savedBooks: book }},
+                { $push: { savedBooks: authors, description, bookId, image, link, title  }},
                 { new: true, runValidators: true }
             );
+            
+            return updatedUser
         }
         throw new AuthenticationError("Please log in!")
     },
