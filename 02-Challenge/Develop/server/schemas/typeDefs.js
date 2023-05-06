@@ -31,6 +31,7 @@ const typeDefs = gql`
     me: User
   }
 
+  
 
 
   type Mutation {
@@ -41,8 +42,6 @@ const typeDefs = gql`
   }
 `;
 
-
-
 // input SavedBookInput {
 //   authors: [String]
 //   title: String
@@ -51,5 +50,7 @@ const typeDefs = gql`
 //   image: String
 //   link: String
 // }
+
+
 
 module.exports = typeDefs;
