@@ -9,7 +9,7 @@ import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
 
 const SavedBooks = () => {
-  const { loading, data } = useQuery(GET_ME);
+  const { loading, data, refetch } = useQuery(GET_ME);
   const [deleteBook] = useMutation(REMOVE_BOOK);
   const userData = data?.me || {};
   if (!userData) {
@@ -61,16 +61,19 @@ const SavedBooks = () => {
           bookId: bookId,
           id: Auth.getProfile().data._id,
         },
+        refetchQueries: [{ query: GET_ME }],
+
       });
 
-      
-      if (!response.ok) {
-        throw new Error("something went wrong!");
-      }
-      console.log(bookId);
+
+      // if (!response.ok) {
+      //   throw new Error("something went wrong!");
+      // }
+      // console.log(bookId);
 
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
+      refetch()
     } catch (err) {
       console.error(err);
     }
