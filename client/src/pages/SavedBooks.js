@@ -63,16 +63,17 @@ const SavedBooks = () => {
     }
 
     try {
-      const response = await deleteBook({
+      const data = await deleteBook({
         variables: { 
           bookId: bookId, 
           id: Auth.getProfile().data._id
         }
       });
+      console.log(bookId)
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+      //  if (!data.ok) {
+      //    throw new Error('something went wrong!');
+      //  }
 
       // const updatedUser = await response.json();
       // setUserData(updatedUser);

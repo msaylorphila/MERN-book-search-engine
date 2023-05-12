@@ -75,19 +75,18 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook({
-        variables: { 
-          ...bookToSave, 
-          id: Auth.getProfile().data._id 
-        }
-      });
-      console.log(Auth.getProfile().data)
-      if (!response) {
+      const {data} = await saveBook({
+        variables: {bookData: {...bookToSave}}
+      })
+      console.log(data)
+      console.log(savedBookIds)
+      setSavedBookIds([...savedBookIds, bookToSave.bookId])
+      if (!data) {
         throw new Error('something went wrong!');
       }
 
       // if book successfully saves to user's account, save book id to state
-      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      // setSavedBookIds([...savedBookIds, bookToSave.bookId]);
       console.log(savedBookIds)
     } catch (err) {
       console.error(err);
